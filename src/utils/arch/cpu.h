@@ -44,6 +44,7 @@ typedef enum ucc_cpu_vendor {
     UCC_CPU_VENDOR_AMD,
     UCC_CPU_VENDOR_GENERIC_ARM,
     UCC_CPU_VENDOR_GENERIC_PPC,
+    UCC_CPU_VENDOR_GENERIC_RISCV,
     UCC_CPU_VENDOR_FUJITSU_ARM,
     UCC_CPU_VENDOR_ZHAOXIN,
     UCC_CPU_VENDOR_LAST
@@ -59,6 +60,8 @@ static inline ucc_cpu_vendor_t ucc_get_vendor_from_str(const char *v_name)
         return UCC_CPU_VENDOR_GENERIC_ARM;
     if (strcasecmp(v_name, "ppc") == 0)
         return UCC_CPU_VENDOR_GENERIC_PPC;
+    if (strcasecmp(v_name, "riscv") == 0)
+        return UCC_CPU_VENDOR_GENERIC_RISCV;
     if (strcasecmp(v_name, "fujitsu") == 0)
         return UCC_CPU_VENDOR_FUJITSU_ARM;
     if (strcasecmp(v_name, "zhaoxin") == 0)
@@ -107,6 +110,8 @@ static inline ucc_cpu_model_t ucc_get_model_from_str(const char *m_name)
 #  include "ppc64/cpu.h"
 #elif defined(__aarch64__)
 #  include "aarch64/cpu.h"
+#elif defined(__riscv) && (__riscv_xlen == 64)
+#  include "riscv64/cpu.h"
 #else
 #  error "Unsupported architecture"
 #endif
